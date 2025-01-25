@@ -1,5 +1,6 @@
 import time
-# from tabulate import tabulate
+import datetime
+from tabulate import tabulate
 
 
 def open_file():
@@ -146,17 +147,34 @@ def update_student():
 
         for line in data:
             if f"{student_id}" in line:
-                old_books = int(line.strip().split(",")[3])
+                name, g_name, old_books = line.strip().split(",")[1:4]
                 break
 
-        name = input("\tEnter the Student Name: ").strip().capitalize()
-        g_name = input("\tEnter the Guardian Name: ").strip().capitalize()
+        print(f"\n\tStudent Name: {name}")
+        print(f"\tGuardian Name: {g_name}")
+
+        while True:
+            choice = input("\n\tDo you want to update the name(s)? [yes/no]: ")
+
+            if choice.lower() == "yes":
+                name = input("\n\tEnter the student name: ").strip().capitalize()
+                g_name = input("\tEnter the guardian name: ").strip().capitalize()
+
+            elif choice.lower() == "no":
+                print("\n\tName(s) not changed.")
+                break
+
+            else:
+                print("\n\tInvalid Choice! Try again. :0")
+                continue
+
+            break
 
         print(f"\n\tPreviously Borrowed Books: {old_books}")
         print("\n\tEnter [+/-] before the number to borrow or to return the book(s).")
 
         while True:
-            books = input("\n\tEnter the number of book(s) or [e] to exit.: ").strip()
+            books = input("\n\tEnter the number of book(s) or [e] to exit: ").strip()
             input_val = books
 
             if books.lower() == "e":
@@ -164,7 +182,7 @@ def update_student():
                 break
 
             elif input_val.lstrip('+-').isdigit():
-                total_books = old_books + int(books)
+                total_books = int(old_books) + int(books)
 
                 if total_books > 10:
                     print("\n\tCannot borrow more than '10' books! Try Again. :0")
@@ -231,23 +249,24 @@ def list_all_students():
 
     print("\nListing all students:\n")
 
-    # You can use [A] part if you do not have the "tabulate" library installed.
+    # You can use [A] part if you do not have the "tabulate" library installed
+    # but "tabulate" is recomended.
 
     # [A]: {
-    for line in data:
-        student_id, name, g_name, books = line.strip().split(",")
-        st_details(student_id, name, g_name, books)
+    # for line in data:
+    #     student_id, name, g_name, books = line.strip().split(",")
+    #     st_details(student_id, name, g_name, books)
     # }
 
     # [B]: {
-    # headers = ["Student ID", "Student Name", "Guardian Name", "Borrowed Books"]
+    headers = ["Student ID", "Student Name", "Guardian Name", "Borrowed Books"]
 
-    # table = []
-    # for line in data:
-    #     student_id, name, g_name, books = line.strip().split(",")
-    #     table.append([student_id, name, g_name, books])
+    table = []
+    for line in data:
+        student_id, name, g_name, books = line.strip().split(",")
+        table.append([student_id, name, g_name, books])
 
-    # print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+    print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
     # }
 
     print(f"\nTotal number of students: {len(data)}")
@@ -303,7 +322,7 @@ def main():
     print("=(Where Students Can Borrow Books!)=")
 
     while True:
-        print("\nMain Menu:")
+        print(f"\nMain Menu:\t\t{datetime.date.today()}")
         print("\n\t[1] Add Student")
         print("\t[2] Update Student")
         print("\t[3] List Student")
