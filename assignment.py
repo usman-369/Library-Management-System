@@ -34,17 +34,26 @@ def id_verfication(student_id, data, add=False):
         return True
 
 
-def st_details(student_id, name, g_name, books=False, total_books=False, old_books=False):
+def st_details(
+    student_id,
+    name,
+    g_name,
+    books=False,
+    up_books=False,
+    old_books=False,
+    x=False,
+    y=False,
+):
     print("\nStudent Details:")
     print(f"\n\tStudent ID: {student_id}")
     print(f"\tStudent Name: {name}")
     print(f"\tGuardian Name: {g_name}")
 
-    if books:
+    if x:
         print(f"\tBorrowed Books: {books}")
 
-    if total_books and old_books:
-        print(f"\tBorrowed/Returned Books: {total_books}")
+    if y:
+        print(f"\tBorrowed/Returned Books: {up_books}")
         print(f"\tPreviously Borrowed Books: {old_books}")
 
     return None
@@ -55,7 +64,7 @@ def available_ids():
     if not data:
         return None
 
-    used_ids = {line.split(',')[0] for line in data}
+    used_ids = {line.split(",")[0] for line in data}
 
     print("\n\tAvailable IDs:", end=" ")
 
@@ -120,7 +129,7 @@ def add_student():
                     students.write(f"{student_id},{name},{g_name},{books}\n")
 
                 print("\nRecord added successfully! ;)")
-                st_details(student_id, name, g_name, books)
+                st_details(student_id, name, g_name, books, x=True)
 
                 break
 
@@ -135,7 +144,9 @@ def update_student():
     print("\nUpdate Menu:")
 
     while True:
-        student_id = input("\n\tEnter the Student ID to update or [e] to exit: ").strip()
+        student_id = input(
+            "\n\tEnter the Student ID to update or [e] to exit: "
+        ).strip()
 
         if student_id.lower() == "e":
             print("\n\tExiting the menu. ;)")
@@ -148,6 +159,7 @@ def update_student():
         for line in data:
             if f"{student_id}" in line:
                 name, g_name, old_books = line.strip().split(",")[1:4]
+                old_books = int(old_books)
                 break
 
         print(f"\n\tStudent Name: {name}")
@@ -174,15 +186,16 @@ def update_student():
         print("\n\tEnter [+/-] before the number to borrow or to return the book(s).")
 
         while True:
-            books = input("\n\tEnter the number of book(s) or [e] to exit: ").strip()
-            input_val = books
+            up_books = input("\n\tEnter the number of book(s) or [e] to exit: ").strip()
+            input_val = up_books
 
-            if books.lower() == "e":
+            if up_books.lower() == "e":
                 print("\n\tExiting the menu. ;)")
                 break
 
-            elif input_val.lstrip('+-').isdigit():
-                total_books = int(old_books) + int(books)
+            elif input_val.lstrip("+-").isdigit():
+                up_books = int(up_books)
+                total_books = old_books + up_books
 
                 if total_books > 10:
                     print("\n\tCannot borrow more than '10' books! Try Again. :0")
@@ -198,12 +211,14 @@ def update_student():
                     with open("students.txt", "wt") as students:
                         for line in data:
                             if f"{student_id}" in line:
-                                students.write(f"{student_id},{name},{g_name},{total_books}\n")
+                                students.write(
+                                    f"{student_id},{name},{g_name},{total_books}\n"
+                                )
                             else:
                                 students.write(line)
 
                     print("\nRecord updated successfully! ;)")
-                    st_details(student_id, name, g_name, total_books, old_books)
+                    st_details(student_id, name, g_name, up_books, old_books, y=True)
 
                     break
 
@@ -235,7 +250,7 @@ def list_student():
         for line in data:
             if f"{student_id}" in line:
                 student_id, name, g_name, books = line.strip().split(",")
-                st_details(student_id, name, g_name, books)
+                st_details(student_id, name, g_name, books, x=True)
 
                 break
 
@@ -255,7 +270,7 @@ def list_all_students():
     # [A]: {
     # for line in data:
     #     student_id, name, g_name, books = line.strip().split(",")
-    #     st_details(student_id, name, g_name, books)
+    #     st_details(student_id, name, g_name, books, x=True)
     # }
 
     # [B]: {
@@ -280,7 +295,9 @@ def delete_student():
     print("\nDelete Menu:")
 
     while True:
-        student_id = input("\n\tEnter the Student ID to delete or [e] to exit: ").strip()
+        student_id = input(
+            "\n\tEnter the Student ID to delete or [e] to exit: "
+        ).strip()
 
         if student_id.lower() == "e":
             print("\n\tExiting the menu. ;)")
@@ -293,7 +310,7 @@ def delete_student():
         for line in data:
             if f"{student_id}" in line:
                 student_id, name, g_name, books = line.strip().split(",")
-                st_details(student_id, name, g_name, books)
+                st_details(student_id, name, g_name, books, x=True)
 
         while True:
             choice = input("\n\tAre you sure? [yes/no]: ")
