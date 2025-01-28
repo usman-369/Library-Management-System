@@ -39,8 +39,9 @@ def st_details(
     name,
     g_name,
     books=False,
-    up_books=False,
     old_books=False,
+    up_books=False,
+    total_books=False,
     x=False,
     y=False,
 ):
@@ -53,8 +54,9 @@ def st_details(
         print(f"\tBorrowed Books: {books}")
 
     if y:
-        print(f"\tBorrowed/Returned Books: {up_books}")
         print(f"\tPreviously Borrowed Books: {old_books}")
+        print(f"\tBorrowed/Returned Books: {up_books}")
+        print(f"\tTotal Number of Books: {total_books}")
 
     return None
 
@@ -218,7 +220,7 @@ def update_student():
                                 students.write(line)
 
                     print("\nRecord updated successfully! ;)")
-                    st_details(student_id, name, g_name, up_books, old_books, y=True)
+                    st_details(student_id, name, g_name, old_books=old_books, up_books=up_books, total_books=total_books, y=True)
 
                     break
 
