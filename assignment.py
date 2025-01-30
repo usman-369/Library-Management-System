@@ -116,6 +116,10 @@ def add_student():
                 print("\n\tExiting the menu. ;)")
                 break
 
+            elif not books.isdigit():
+                print("\n\tInvalid Input! Try again. :0")
+                continue
+
             elif int(books) > 10:
                 print("\n\tCannot borrow more than 10 books! Try again. :0")
                 continue
