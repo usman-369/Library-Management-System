@@ -116,6 +116,10 @@ def add_student():
                 print("\n\tExiting the menu. ;)")
                 break
 
+            elif not books.isdigit():
+                print("\n\tInvalid Input! Try again. :0")
+                continue
+
             elif int(books) > 10:
                 print("\n\tCannot borrow more than 10 books! Try again. :0")
                 continue
@@ -266,8 +270,9 @@ def list_all_students():
 
     print("\nListing all students:\n")
 
-    # You can use [A] part if you do not have the "tabulate" library installed
-    # but "tabulate" is recomended.
+    # You can use [A] part if you do not have the "tabulate" library installed.
+    # But it's gonna be a reeeeeally long list if you have a large amount
+    # of data, thats why "tabulate" is recomended. It's much better. ;)
 
     # [A]: {
     # for line in data:
@@ -337,11 +342,11 @@ def delete_student():
 
 
 def main():
-    print("\nWELCOME TO LIBRARY MANAGEMENT SYSTEM")
+    print("\n\nWELCOME TO LIBRARY MANAGEMENT SYSTEM")
     print("=(Where Students Can Borrow Books!)=")
 
     while True:
-        print(f"\nMain Menu:\t\t{datetime.date.today()}")
+        print(f"\n\nMain Menu:\t\t{datetime.date.today()}")
         print("\n\t[1] Add Student")
         print("\t[2] Update Student")
         print("\t[3] List Student")
