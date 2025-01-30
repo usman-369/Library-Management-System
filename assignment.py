@@ -338,11 +338,11 @@ def delete_student():
 
 
 def main():
-    print("\nWELCOME TO LIBRARY MANAGEMENT SYSTEM")
+    print("\n\nWELCOME TO LIBRARY MANAGEMENT SYSTEM")
     print("=(Where Students Can Borrow Books!)=")
 
     while True:
-        print(f"\nMain Menu:\t\t{datetime.date.today()}")
+        print(f"\n\nMain Menu:\t\t{datetime.date.today()}")
         print("\n\t[1] Add Student")
         print("\t[2] Update Student")
         print("\t[3] List Student")
