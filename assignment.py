@@ -1,6 +1,7 @@
-import time
 import datetime
 from tabulate import tabulate
+import time
+import sys
 
 
 def open_file():
@@ -370,10 +371,11 @@ def main():
             available_ids()
         elif choice.lower() == "e":
             print("\nExiting the program. Bye! ;)\n")
-            time.sleep(2)
-            break
+            time.sleep(1)
+            sys.exit()
         else:
             print("\n\tInvalid Choice! Please try again. :0")
 
 
-main()
+if __name__ == "__main__":
+    main()
