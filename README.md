@@ -1,2 +1,2 @@
 # Library-Management-System
-A library management system for borrowing books written in Python.
+A CLI-based library management system for borrowing books, developed in Python.
